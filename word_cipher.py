@@ -45,6 +45,18 @@ class WordCipher(Cipher):
 
         return output
 
+    def decrypt(self, text):
+        message = ''
+        for i in text:
+            try:
+                message += self.enc_grid[i]
+            except KeyError:
+                if i not in self.enc_grid:
+                    message += ' '
+            else: KeyError
+
+        return message
+
 
 
 
