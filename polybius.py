@@ -6,27 +6,19 @@ class Polybius(Cipher):
     ALPHA = string.ascii_uppercase
 
     def __init__(self):
-        self.alph_list = alph_list = []
-        key_nums = [11, 12, 13, 14, 15,
-                    21, 22, 23, 24, 25,
-                    31, 32, 33, 34, 35,
-                    41, 42, 43, 44, 45,
-                    51, 52, 53, 54, 55]
+        self._alph_list = []
+        self._key_nums = [11, 12, 13, 14, 15,
+                          21, 22, 23, 24, 25,
+                          31, 32, 33, 34, 35,
+                          41, 42, 43, 44, 45,
+                          51, 52, 53, 54, 55,
+                          56]
 
         for a in self.ALPHA:
-            if a == 'I':
-                a = "I/J"
-            if a == "J":
-                continue
-            alph_list.append(a)
+            self._alph_list.append(a)
 
-        self.enc_grid = {number: letter for letter, number in zip(alph_list, key_nums)}
-        self.dec_grid = {letter: number for number, letter, in zip(key_nums, alph_list)}
-
-        print('decrypt:',self.dec_grid ,'\n', 'encrypt:',self.enc_grid)
-
-
-
+        self.enc_grid = {number: letter for letter, number in zip(self._alph_list, self._key_nums)}
+        self.dec_grid = {letter: number for number, letter, in zip(self._key_nums, self._alph_list)}
 
     def encrypt(self, text):
         text = text.upper()
@@ -40,10 +32,8 @@ class Polybius(Cipher):
             try:
                 output.append(self.dec_grid[i])
             except KeyError:
-                if i == 'I':
-                    output.append(self.dec_grid['I/J'])
-                elif i == "J":
-                    output.append(self.dec_grid['I/J'])
+                if i not in self.dec_grid:
+                    output.append(10)
                 else:
                     continue
             else: KeyError
@@ -53,5 +43,13 @@ class Polybius(Cipher):
     def decrypt(self, num_list):
         message = ''
         for i in num_list:
-            message += self.enc_grid[i]
+            try:
+                message += self.enc_grid[i]
+            except KeyError:
+                if i not in self.enc_grid:
+                    message += ' '
+            else: KeyError
+
         return message
+
+
