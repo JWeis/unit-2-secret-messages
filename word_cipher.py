@@ -38,12 +38,14 @@ class WordCipher(Cipher):
                 output += self.dec_grid[char]
             except KeyError:
                 if char not in self.dec_grid:
-                    output += ' '
+                    output += ''
                 else:
                     continue
             else: KeyError
 
-        return output
+        blocks = ' '.join(output[i:i+5] for i in range(0, len(output), 5))
+
+        return blocks
 
     def decrypt(self, text):
         message = ''
@@ -52,7 +54,7 @@ class WordCipher(Cipher):
                 message += self.enc_grid[i]
             except KeyError:
                 if i not in self.enc_grid:
-                    message += ' '
+                    message += ''
             else: KeyError
 
         return message
