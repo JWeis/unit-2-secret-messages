@@ -7,23 +7,26 @@ class WordCipher(Cipher):
 
     def __init__(self, keyword):
         self.keyword = keyword
-        word = keyword.upper()
+        self.word = keyword.upper()
         self.plaintext = plaintext = []
         self.keyword_list = keyword_list = []
-        self.new_list = new_list = []
+        self.place_list = place_list = []
+
         for i in self.ALPHA:
             plaintext.append(i)
 
-        for i in word:
+        for i in self.word:
             keyword_list.append(i)
 
         for i in plaintext:
             if i not in keyword_list:
-                new_list.append(i)
+                place_list.append(i)
+
+        self.new_list = new_list = keyword_list + place_list
 
 
-        self.enc_grid = enc_grid = {number: letter for letter, number in zip(keyword_list, new_list)}
-        self.dec_grid = dec_grid = {letter: number for number, letter, in zip(new_list, keyword_list)}
+        self.enc_grid = enc_grid = {number: letter for letter, number in zip(plaintext, new_list)}
+        self.dec_grid = dec_grid = {letter: number for number, letter, in zip(new_list, plaintext)}
 
 
     def encrypt(self, text):
@@ -35,7 +38,7 @@ class WordCipher(Cipher):
                 output += self.dec_grid[char]
             except KeyError:
                 if char not in self.dec_grid:
-                    output.append(' ')
+                    output += ' '
                 else:
                     continue
             else: KeyError
