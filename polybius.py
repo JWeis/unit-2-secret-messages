@@ -38,17 +38,22 @@ class Polybius(Cipher):
                     continue
             else: KeyError
 
-        return output
+        blocks = [output[i:i + 5] for i in range(0, len(output), 5)]
+
+        return blocks
 
     def decrypt(self, num_list):
         message = ''
+        holder_list = []
+
         for i in num_list:
-            try:
-                message += self.enc_grid[i]
-            except KeyError:
-                if i not in self.enc_grid:
+            holder_list = i
+            for a in holder_list:
+                if a not in self.enc_grid:
                     message += ''
-            else: KeyError
+                else:
+                    message += self.enc_grid[a]
+                    holder_list = []
 
         blocks = ' '.join(message[i:i + 5] for i in range(0, len(message), 5))
 
