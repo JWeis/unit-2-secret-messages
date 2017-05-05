@@ -47,9 +47,11 @@ class Polybius(Cipher):
                 message += self.enc_grid[i]
             except KeyError:
                 if i not in self.enc_grid:
-                    message += ' '
+                    message += ''
             else: KeyError
 
-        return message
+        blocks = ' '.join(message[i:i + 5] for i in range(0, len(message), 5))
+
+        return blocks
 
 
