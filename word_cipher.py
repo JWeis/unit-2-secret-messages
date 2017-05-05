@@ -28,6 +28,9 @@ class WordCipher(Cipher):
         self.enc_grid = enc_grid = {number: letter for letter, number in zip(plaintext, new_list)}
         self.dec_grid = dec_grid = {letter: number for number, letter, in zip(new_list, plaintext)}
 
+    def cipher_list(self):
+        return self.new_list
+
 
     def encrypt(self, text):
         text = text.upper()
@@ -56,8 +59,9 @@ class WordCipher(Cipher):
                 if i not in self.enc_grid:
                     message += ''
             else: KeyError
+        blocks = ' '.join(message[i:i + 5] for i in range(0, len(message), 5))
 
-        return message
+        return blocks
 
 
 
