@@ -26,7 +26,7 @@ class Bifid(Cipher):
         """
         step_one = self.word_cipher.encrypt(text)
         step_two = self.poly.encrypt(step_one)
-        
+
         return step_two
 
     def decrypt(self, enc_list):
