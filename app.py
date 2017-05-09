@@ -29,7 +29,7 @@ def end_app():
 
 
 def keyword_enc(cipher):
-    keyword = input("Please enter a secret keyword:  ")
+    keyword = input("Please enter a secret keyword - only letters please:  ")
     cipher = cipher(keyword)
     message = input("\nWhat message would like to Encrypt? \n")
     encrypt = cipher.encrypt(message)
