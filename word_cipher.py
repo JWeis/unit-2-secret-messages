@@ -37,6 +37,7 @@ class WordCipher(Cipher):
         return blocks
 
     def decrypt(self, text):
+        text = text.upper()
         message = ''
         for i in text:
             if i in self.num_grid:
@@ -50,3 +51,4 @@ class WordCipher(Cipher):
 
     def cipher_list(self):
         return self.new_list
+
